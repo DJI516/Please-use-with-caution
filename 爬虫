@@ -1,0 +1,25 @@
+import requests
+
+url = 'https://example.com'  # 你想爬取的网址
+response = requests.get(url)  # 发送GET请求
+print(response.text)  # 输出网页的HTML内容
+from bs4 import BeautifulSoup
+
+soup = BeautifulSoup(response.text, 'html.parser')  # 解析网页
+print(soup.prettify())  # 打印网页的格式化内容
+titles = soup.find_all('h1')  # 找到所有的<h1>标签
+for title in titles:
+    print(title.text)
+import pandas as pd
+
+data = {'title': ['example1', 'example2'], 'link': ['link1', 'link2']}
+df = pd.DataFrame(data)
+df.to_csv('output.csv', index=False)  # 将数据保存为CSV文件
+import pandas as pd
+
+data = {'title': ['example1', 'example2'], 'link': ['link1', 'link2']}
+df = pd.DataFrame(data)
+df.to_csv('output.csv', index=False)  # 将数据保存为CSV文件
+import time
+
+time.sleep(1)  # 每次请求后等待1秒
