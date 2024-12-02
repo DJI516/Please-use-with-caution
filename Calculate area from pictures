@@ -1,0 +1,33 @@
+import cv2
+import numpy as np
+
+# 读取图像
+image = cv2.imread('image.jpg')
+
+# 转换为灰度图像
+gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+
+# 使用二值化处理
+_, thresh = cv2.threshold(gray, 127, 255, cv2.THRESH_BINARY)
+
+# 查找轮廓
+contours, _ = cv2.findContours(thresh, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+
+# 计算面积
+total_area = 0
+for contour in contours:
+    area = cv2.contourArea(contour)
+    total_area += area
+
+print(f"Total area in pixels: {total_area}")
+
+# 如果需要转换为实际面积，假设你知道每个像素对应的实际面积
+# 比如，每个像素代表 1 cm²，可以进行相应的转换
+
+# 显示二值图像和轮廓
+cv2.drawContours(image, contours, -1, (0, 255, 0), 3)
+cv2.imshow("Contours", image)
+cv2.waitKey(0)
+cv2.destroyAllWindows()
+# 假设每个像素代表 1 cm²，或者你可以根据实际比例进行换算
+area_in_cm2 = total_area  # 如果每个像素为 1 cm²
