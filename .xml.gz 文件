@@ -1,0 +1,36 @@
+import requests
+
+# 文件链接列表
+sitemap_urls = [
+    "https://www1.examplecdn.com/assets/sitemap/build/www.example.com.sm1.xml.gz",
+    "https://www1.examplecdn.com/assets/sitemap/build/www.example.com.sm2.xml.gz",
+    "https://www1.examplecdn.com/assets/sitemap/build/www.example.com.sm3.xml.gz",
+    # 添加更多链接...
+]
+
+# 下载保存文件
+for i, url in enumerate(sitemap_urls):
+    file_name = f"sitemap_{i + 1}.xml.gz"
+    try:
+        response = requests.get(url)
+        response.raise_for_status()
+        with open(file_name, 'wb') as f:
+            f.write(response.content)
+        print(f"成功下载: {file_name}")
+    except Exception as e:
+        print(f"下载失败: {url}, 错误: {e}")
+import gzip
+import shutil
+
+# 解压函数
+def decompress_gz(file_name, output_file):
+    with gzip.open(file_name, 'rb') as f_in:
+        with open(output_file, 'wb') as f_out:
+            shutil.copyfileobj(f_in, f_out)
+
+# 批量解压
+for i in range(len(sitemap_urls)):
+    gz_file = f"sitemap_{i + 1}.xml.gz"
+    output_file = f"sitemap_{i + 1}.xml"
+    decompress_gz(gz_file, output_file)
+    print(f"成功解压: {output_file}")
