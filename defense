@@ -1,0 +1,8 @@
+import html
+
+# 假设用户输入的内容包含HTML标签
+user_input = "<script>alert('XSS')</script>"
+
+# 使用html.escape()对用户输入进行转义
+escaped_input = html.escape(user_input)
+print(escaped_input)  # 输出：&lt;script&gt;alert('XSS')&lt;/script&gt;
