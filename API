@@ -1,0 +1,9 @@
+import requests
+import json
+
+url = 'https://api.example.com/data'  # 假设返回JSON数据的API
+response = requests.get(url)
+
+if response.status_code == 200:
+    data = response.json()  # 解析JSON数据
+    print(json.dumps(data, indent=2))  # 格式化输出JSON
