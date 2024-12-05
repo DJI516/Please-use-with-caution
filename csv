@@ -1,0 +1,20 @@
+import requests
+from bs4 import BeautifulSoup
+import csv
+
+url = 'http://example.com'
+response = requests.get(url)
+soup = BeautifulSoup(response.text, 'html.parser')
+
+# 假设你需要抓取的是一个列表
+data = []
+
+for item in soup.find_all('li'):  # 假设数据存在 <li> 标签中
+    data.append(item.text)
+
+# 保存到CSV文件
+with open('output.csv', 'w', newline='', encoding='utf-8') as f:
+    writer = csv.writer(f)
+    writer.writerow(['Data'])  # 写入表头
+    for row in data:
+        writer.writerow([row])  # 写入数据行
